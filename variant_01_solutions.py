@@ -32,7 +32,16 @@ def decode_servo_status(actuator_data: tuple) -> str:
     - штатний режим -> "Привід {id} працює штатно ({current_mA} мА)"
     - за замовчуванням -> "Невідомий формат даних"
     """
-    ...
+    match actuator_data:
+        case (actuator_id, status_code, current_mA) if current_mA > 2000:
+            return f"Перевантаження приводу {actuator_id}"
+        case (actuator_id, status_code, current_mA) if status_code == 0:
+            return f"Привід {actuator_id} вимкнено"
+        case (actuator_id, status_code, current_mA) if current_mA <= 2000 and status_code != 0:
+            return f"Привід {actuator_id} працює штатно ({current_mA} мА)"
+        case _:
+            return "Невідомий формат даних"
+    
 
 # Задача 3: Обробка буфера UART (while / else)
 def parse_uart_buffer(buffer: list) -> str:
