@@ -50,7 +50,14 @@ def parse_uart_buffer(buffer: list) -> str:
     поки не зустріне заголовок 0xAA (повертає "Кадр знайдено").
     Якщо список спорожнів без виклику break -> повертає через else: "Заголовок відсутній"
     """
-    ...
+    while len(buffer) != 0:
+        if buffer.pop(0) == 0xAA:
+            break
+    else:
+        return "Заголовок відсутній"
+
+    return "Кадр знайдено"
+    
 
 # Задача 4: Аналіз тиску двигуна (enumerate / range)
 def check_engine_pressure(pressures: list) -> list | str:
