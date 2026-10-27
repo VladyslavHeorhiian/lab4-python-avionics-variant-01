@@ -67,4 +67,12 @@ def check_engine_pressure(pressures: list) -> list | str:
     Якщо є аномалії -> повертає список кортежів [(idx, val), ...].
     Якщо тиск всюди в нормі -> повертає "Тиск у нормі".
     """
-    ...
+    deviation = []
+    for i, pressure in enumerate(pressures):
+        if pressure < 150:
+            deviation.append((i, pressure))
+
+    if len(deviation) != 0:
+        return deviation
+    else:
+        return "Тиск у нормі"
