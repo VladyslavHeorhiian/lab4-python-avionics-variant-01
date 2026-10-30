@@ -12,15 +12,18 @@ def check_orientation(roll: float, pitch: float) -> str:
     Повертає один із рядків:
     "Штатний політ", "Критичний крен", "Критичний тангаж", "Аварійний режим"
     """
+    message = ""
 
     if abs(roll) <= 30 and abs(pitch) <= 20:
-        return "Штатний політ"
+        message = "Штатний політ"
     elif abs(roll) > 30 and abs(pitch) <= 20:
-        return "Критичний крен"
+        message =  "Критичний крен"
     elif abs(roll) <= 30 and abs(pitch) > 20:
-        return "Критичний тангаж"
+        message = "Критичний тангаж"
     elif abs(roll) > 30 and abs(pitch) > 20:
-        return "Аварійний режим"
+        message = "Аварійний режим"
+
+    return message
 
 # Задача 2: Декодер стану сервоприводів (match-case)
 def decode_servo_status(actuator_data: tuple) -> str:
